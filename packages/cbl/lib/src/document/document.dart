@@ -187,6 +187,11 @@ class DelegateDocument with IterableMixin<String> implements Document {
     _setupProperties();
   }
 
+  static final _encoders = {
+    for (final format in EncodingFormat.values)
+      format: FleeceEncoder(format: format.toFLEncoderFormat())
+  };
+
   DocumentDelegate get delegate => _delegate;
   DocumentDelegate _delegate;
 
@@ -223,16 +228,16 @@ class DelegateDocument with IterableMixin<String> implements Document {
     EncodingFormat format = EncodingFormat.fleece,
     bool saveExternalData = false,
   }) {
-    final encoder = FleeceEncoder(format: format.toFLEncoderFormat())
+    final encoder = _encoders[format]!
+      ..reset()
       ..extraInfo = FleeceEncoderContext(
         database: database,
         encodeQueryParameter: true,
         saveExternalData: saveExternalData,
       );
-
-    return _root
-        .encodeTo(encoder)
-        .then((_) => EncodedData(format, encoder.finish()));
+    _root.encodeTo(encoder);
+    // TODO: install blobs
+    return EncodedData(format, encoder.finish());
   }
 
   FutureOr<void> writePropertiesToDelegate() =>

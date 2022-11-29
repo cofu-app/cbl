@@ -56,9 +56,13 @@ class FleeceEncoder implements Finalizable {
 
   /// Tells the encoder to use a shared-keys mapping when encoding dictionary
   /// keys.
-  void setSharedKeys(SharedKeys? sharedKeys) => runWithErrorTranslation(() {
-        _encoderBinds.setSharedKeys(_pointer, sharedKeys?.pointer ?? nullptr);
-      });
+  void setSharedKeys(SharedKeys? sharedKeys) {
+    try {
+      _encoderBinds.setSharedKeys(_pointer, sharedKeys?.pointer ?? nullptr);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Arbitrary information which needs to be available to code that is using
   /// this encoder.
@@ -115,85 +119,171 @@ class FleeceEncoder implements Finalizable {
   }
 
   /// Writes the value at [index] in [array] to this encoder.
-  void writeArrayValue(Pointer<FLArray> array, int index) =>
-      runWithErrorTranslation(
-          () => _encoderBinds.writeArrayValue(_pointer, array, index));
+  void writeArrayValue(Pointer<FLArray> array, int index) {
+    try {
+      _encoderBinds.writeArrayValue(_pointer, array, index);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes [value] this encoder.
-  void writeValue(Pointer<FLValue> value) =>
-      runWithErrorTranslation(() => _encoderBinds.writeValue(_pointer, value));
+  void writeValue(Pointer<FLValue> value) {
+    try {
+      _encoderBinds.writeValue(_pointer, value);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes `null` to this encoder.
-  void writeNull() =>
-      runWithErrorTranslation(() => _encoderBinds.writeNull(_pointer));
+  void writeNull() {
+    try {
+      _encoderBinds.writeNull(_pointer);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes the [bool] [value] to this encoder.
   // ignore: avoid_positional_boolean_parameters
-  void writeBool(bool value) =>
-      runWithErrorTranslation(() => _encoderBinds.writeBool(_pointer, value));
+  void writeBool(bool value) {
+    try {
+      _encoderBinds.writeBool(_pointer, value);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes the [int] [value] to this encoder.
-  void writeInt(int value) =>
-      runWithErrorTranslation(() => _encoderBinds.writeInt(_pointer, value));
+  void writeInt(int value) {
+    try {
+      _encoderBinds.writeInt(_pointer, value);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes the [double] [value] to this encoder.
-  void writeDouble(double value) =>
-      runWithErrorTranslation(() => _encoderBinds.writeDouble(_pointer, value));
+  void writeDouble(double value) {
+    try {
+      _encoderBinds.writeDouble(_pointer, value);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes the [String] [value] to this encoder.
-  void writeString(String value) =>
-      runWithErrorTranslation(() => _encoderBinds.writeString(_pointer, value));
+  void writeString(String value) {
+    try {
+      _encoderBinds.writeString(_pointer, value);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes the [TypedData] [value] to this encoder.
-  void writeData(Data value) =>
-      runWithErrorTranslation(() => _encoderBinds.writeData(_pointer, value));
+  void writeData(Data value) {
+    try {
+      _encoderBinds.writeData(_pointer, value);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes the UTF-8 encoded JSON string [value] to this encoder.
-  void writeJson(Data value) =>
-      runWithErrorTranslation(() => _encoderBinds.writeJSON(_pointer, value));
+  void writeJson(Data value) {
+    try {
+      _encoderBinds.writeJSON(_pointer, value);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Begins an array and reserves space for [reserveLength] element.
-  void beginArray(int reserveLength) => runWithErrorTranslation(
-      () => _encoderBinds.beginArray(_pointer, reserveLength));
+  void beginArray(int reserveLength) {
+    try {
+      _encoderBinds.beginArray(_pointer, reserveLength);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Ends an array.
-  void endArray() =>
-      runWithErrorTranslation(() => _encoderBinds.endArray(_pointer));
+  void endArray() {
+    try {
+      _encoderBinds.endArray(_pointer);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Begins a dict and reserves space for [reserveLength] entries.
-  void beginDict(int reserveLength) => runWithErrorTranslation(
-      () => _encoderBinds.beginDict(_pointer, reserveLength));
+  void beginDict(int reserveLength) {
+    try {
+      _encoderBinds.beginDict(_pointer, reserveLength);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes a [key] for the next entry in a dict.
-  void writeKey(String key) =>
-      runWithErrorTranslation(() => _encoderBinds.writeKey(_pointer, key));
+  void writeKey(String key) {
+    try {
+      _encoderBinds.writeKey(_pointer, key);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes a [key] for the next entry in a dict, from a [FLString].
-  void writeKeyFLString(FLString key) => runWithErrorTranslation(
-      () => _encoderBinds.writeKeyFLString(_pointer, key));
+  void writeKeyFLString(FLString key) {
+    try {
+      _encoderBinds.writeKeyFLString(_pointer, key);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Writes a [key] for the next entry in a dict, from a [FLValue].
-  void writeKeyValue(Pointer<FLValue> key) =>
-      runWithErrorTranslation(() => _encoderBinds.writeKeyValue(_pointer, key));
+  void writeKeyValue(Pointer<FLValue> key) {
+    try {
+      _encoderBinds.writeKeyValue(_pointer, key);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Ends a dict.
-  void endDict() =>
-      runWithErrorTranslation(() => _encoderBinds.endDict(_pointer));
+  void endDict() {
+    try {
+      _encoderBinds.endDict(_pointer);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Resets this encoder and allows it to be used again.
-  void reset() => runWithErrorTranslation(() => _encoderBinds.reset(_pointer));
+  void reset() {
+    try {
+      _encoderBinds.reset(_pointer);
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
+    }
+  }
 
   /// Finishes encoding and returns the result.
   ///
   /// To begin a new piece of Fleece data call [reset].
   Data finish() {
-    final result =
-        runWithErrorTranslation(() => _encoderBinds.finish(_pointer));
-
-    if (result == null) {
-      throw StateError('Encoder did not encode anything.');
+    try {
+      final result = _encoderBinds.finish(_pointer);
+      if (result == null) {
+        throw StateError('Encoder did not encode anything.');
+      }
+      return result;
+    } on CBLErrorException catch (e) {
+      throw toCouchbaseLiteException(e);
     }
-
-    return result;
   }
 }

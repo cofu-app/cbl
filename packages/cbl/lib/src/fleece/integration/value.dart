@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes
 
-import 'dart:async';
 import 'dart:ffi';
 
 import 'package:cbl_ffi/cbl_ffi.dart';
@@ -86,14 +85,14 @@ class MValue {
 
   void removeFromParent() => _nativeChangeSlot(null);
 
-  FutureOr<void> encodeTo(FleeceEncoder encoder) {
+  void encodeTo(FleeceEncoder encoder) {
     assert(!isEmpty);
 
     final value = _value;
     if (value != null) {
       encoder.writeValue(value);
     } else {
-      return _delegate.encodeNative(encoder, _native);
+      _delegate.encodeNative(encoder, _native);
     }
   }
 

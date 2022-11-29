@@ -161,6 +161,8 @@ class ResultImpl with IterableMixin<String> implements Result {
         columnValuesArray = array,
         columnValuesData = null;
 
+  static final _jsonEncoder = FleeceEncoder(format: FLEncoderFormat.json);
+
   final DatabaseMContext _context;
   final List<String> _columnNames;
   final Data? columnValuesData;
@@ -294,10 +296,9 @@ class ResultImpl with IterableMixin<String> implements Result {
 
   @override
   String toJson() {
-    final encoder = FleeceEncoder(format: FLEncoderFormat.json);
-    final encodeResult = _dictionary.encodeTo(encoder);
-    assert(encodeResult is! Future);
-    final sliceResult = encoder.finish().toSliceResult();
+    _jsonEncoder.reset();
+    _dictionary.encodeTo(_jsonEncoder);
+    final sliceResult = _jsonEncoder.finish().toSliceResult();
     return utf8.decode(sliceResult.asTypedList());
   }
 

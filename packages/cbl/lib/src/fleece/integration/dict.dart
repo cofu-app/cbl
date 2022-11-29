@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:ffi';
 
 import 'package:cbl_ffi/cbl_ffi.dart';
 
-import '../../support/utils.dart';
 import '../decoder.dart';
 import '../dict_key.dart';
 import '../encoder.dart';
@@ -109,35 +107,33 @@ class MDict extends MCollection {
   }
 
   @override
-  FutureOr<void> performEncodeTo(FleeceEncoder encoder) {
+  void performEncodeTo(FleeceEncoder encoder) {
     if (!isMutated) {
       encoder.writeValue(_dict!.cast());
     } else {
-      return syncOrAsync(() sync* {
-        final extraInfo = encoder.extraInfo;
-        final dictKeys =
-            extraInfo is DictKeysProvider ? extraInfo.dictKeys : null;
-        // ignore: omit_local_variable_types
-        final void Function(String) writeKey = dictKeys != null
-            ? (key) => dictKeys.getKey(key).encodeTo(encoder)
-            : encoder.writeKey;
+      final extraInfo = encoder.extraInfo;
+      final dictKeys =
+          extraInfo is DictKeysProvider ? extraInfo.dictKeys : null;
+      // ignore: omit_local_variable_types
+      final void Function(String) writeKey = dictKeys != null
+          ? (key) => dictKeys.getKey(key).encodeTo(encoder)
+          : encoder.writeKey;
 
-        encoder.beginDict(length);
-        for (final entry in iterable) {
-          final value = entry.value;
-          if (value is _MValueWithKey) {
-            encoder.writeKeyValue(value.key);
-          } else {
-            writeKey(entry.key);
-          }
-          if (value.hasValue) {
-            encoder.writeValue(value.value!);
-          } else {
-            yield value.encodeTo(encoder);
-          }
+      encoder.beginDict(length);
+      for (final entry in iterable) {
+        final value = entry.value;
+        if (value is _MValueWithKey) {
+          encoder.writeKeyValue(value.key);
+        } else {
+          writeKey(entry.key);
         }
-        encoder.endDict();
-      }());
+        if (value.hasValue) {
+          encoder.writeValue(value.value!);
+        } else {
+          value.encodeTo(encoder);
+        }
+      }
+      encoder.endDict();
     }
   }
 
@@ -167,7 +163,6 @@ class MDict extends MCollection {
       keyOut: globalLoadedDictKey,
       valueOut: globalLoadedFLValue,
       preLoad: false,
-      partiallyConsumable: false,
     );
     final loadedKey = globalLoadedDictKey.ref;
     final loadedValue = globalLoadedFLValue.ref;
