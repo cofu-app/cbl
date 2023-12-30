@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes
 
-import 'dart:async';
 import 'dart:collection';
 
 import 'package:cbl_ffi/cbl_ffi.dart';
@@ -320,6 +319,8 @@ class ArrayImpl
     implements Array, MCollectionWrapper, FleeceEncodable, CblConversions {
   ArrayImpl(this._array);
 
+  static final _jsonEncoder = FleeceEncoder(format: FLEncoderFormat.json);
+
   final MArray _array;
 
   @override
@@ -386,17 +387,16 @@ class ArrayImpl
 
   @override
   String toJson() {
-    final encoder = FleeceEncoder(format: FLEncoderFormat.json);
-    final done = encodeTo(encoder);
-    assert(done is! Future);
-    return encoder.finish().toDartString();
+    _jsonEncoder.reset();
+    encodeTo(_jsonEncoder);
+    return _jsonEncoder.finish().toDartString();
   }
 
   @override
   MCollection get mCollection => _array;
 
   @override
-  FutureOr<void> encodeTo(FleeceEncoder encoder) => _array.encodeTo(encoder);
+  void encodeTo(FleeceEncoder encoder) => _array.encodeTo(encoder);
 
   @override
   Object? toCblObject() => toMutable();

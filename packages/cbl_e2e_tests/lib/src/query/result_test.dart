@@ -236,8 +236,7 @@ Result testResult(List<String> columnNames, List<Object?> columnValues) {
     // FleeceEncoderContext is needed to compare unsaved Blobs in test.
     ..extraInfo = FleeceEncoderContext(encodeQueryParameter: true);
 
-  final encodingResult = values.encodeTo(encoder);
-  assert(encodingResult is! Future);
+  values.encodeTo(encoder);
   return ResultImpl.fromValuesData(
     encoder.finish(),
     context: createResultSetMContext(MockDatabase()),

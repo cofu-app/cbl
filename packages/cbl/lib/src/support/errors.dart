@@ -49,6 +49,8 @@ bool assertMatchingDatabase(
   );
 }
 
+const _toCouchbaseLiteException = toCouchbaseLiteException;
+
 extension CBLErrorExceptionExt on CBLErrorException {
   CouchbaseLiteException toCouchbaseLiteException() =>
       _toCouchbaseLiteException(this);
@@ -59,11 +61,11 @@ T runWithErrorTranslation<T>(T Function() fn) {
   try {
     return fn();
   } on CBLErrorException catch (e) {
-    throw _toCouchbaseLiteException(e);
+    throw toCouchbaseLiteException(e);
   }
 }
 
-CouchbaseLiteException _toCouchbaseLiteException(CBLErrorException exception) {
+CouchbaseLiteException toCouchbaseLiteException(CBLErrorException exception) {
   switch (exception.domain) {
     case CBLErrorDomain.couchbaseLite:
       return DatabaseException(

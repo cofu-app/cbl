@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:cbl_ffi/cbl_ffi.dart';
 import 'package:meta/meta.dart';
 
-import '../../support/utils.dart';
 import '../encoder.dart';
 import 'context.dart';
 import 'value.dart';
@@ -49,14 +46,14 @@ abstract class MCollection {
 
   Iterable<MValue> get values;
 
-  FutureOr<void> encodeTo(FleeceEncoder encoder) =>
-      performEncodeTo(encoder).then((_) {
-        // We keep the context alive until the end of encoding, so that
-        // MCollections can safely use Fleece data during encoding.
-        cblReachabilityFence(context);
-      });
+  void encodeTo(FleeceEncoder encoder) {
+    performEncodeTo(encoder);
+    // We keep the context alive until the end of encoding, so that
+    // MCollections can safely use Fleece data during encoding.
+    cblReachabilityFence(context);
+  }
 
-  FutureOr<void> performEncodeTo(FleeceEncoder encoder);
+  void performEncodeTo(FleeceEncoder encoder);
 
   @protected
   void mutate() {
