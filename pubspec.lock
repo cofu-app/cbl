@@ -62,14 +62,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.12.0"
-  boolean_selector:
-    dependency: transitive
-    description:
-      name: boolean_selector
-      sha256: "8aab1771e1243a5063b8b0ff68042d67334e3feab9e95b9490f9a6ebf73b42ea"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.2"
   cbd:
     dependency: "direct dev"
     description:
@@ -276,22 +268,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.3-main.0"
-  matcher:
-    dependency: transitive
-    description:
-      name: matcher
-      sha256: dc58c723c3c24bf8d3e2d3ad3f2f9d7bd9cf43ec6feaa64181775e60190153f2
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.12.17"
   melos:
     dependency: "direct dev"
     description:
       name: melos
-      sha256: a62abfa8c7826cec927f8585572bb9adf591be152150494d879ca2c75118809d
+      sha256: "3f3ab3f902843d1e5a1b1a4dd39a4aca8ba1056f2d32fd8995210fa2843f646f"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.0"
+    version: "6.3.2"
   meta:
     dependency: transitive
     description:
@@ -372,30 +356,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
-  pubspec:
-    dependency: transitive
-    description:
-      name: pubspec
-      sha256: f534a50a2b4d48dc3bc0ec147c8bd7c304280fff23b153f3f11803c4d49d927e
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
   pubspec_parse:
     dependency: transitive
     description:
       name: pubspec_parse
-      sha256: c799b721d79eb6ee6fa56f00c04b472dcd44a30d258fac2174a6ec57302678f8
+      sha256: "0560ba233314abbed0a48a2956f7f022cce7c3e1e73df540277da7544cad4082"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.0"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      sha256: ea0b925899e64ecdfbf9c7becb60d5b50e706ade44a85b2363be2a22d88117d2
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.2"
+    version: "1.5.0"
   solvent:
     dependency: transitive
     description:
@@ -452,14 +420,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
-  test_api:
-    dependency: transitive
-    description:
-      name: test_api
-      sha256: fb31f383e2ee25fbbfe06b40fe21e1e458d14080e3c67e7ba0acfde4df4e0bbd
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.4"
   typed_data:
     dependency: transitive
     description:
@@ -468,14 +428,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  uri:
-    dependency: transitive
-    description:
-      name: uri
-      sha256: "889eea21e953187c6099802b7b4cf5219ba8f3518f604a1033064d45b1b8268a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   watcher:
     dependency: transitive
     description:
